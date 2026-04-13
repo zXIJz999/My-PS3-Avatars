@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>zxijz's Avatar Codex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #0c0a08;
+    --ink-mid:    #16120d;
+    --ink-light:  #1a1208;
+    --gold:       rgba(180,140,80,.22);
+    --gold-faint: rgba(180,140,80,.06);
+    --gold-text:  #7a6a50;
+    --gold-dim:   #5a4a30;
+    --gold-dead:  #3a2e1e;
+    --gold-trace: #2a2010;
+    --cream:      #e8dfc8;
+    --cream-bright: #f0e6cc;
+    --red:        #c0392b;
+    --red-dark:   #8b1a1a;
+    --purple:     #9b59b6;
+    --purple-light: #c084fc;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--ink);
+    background-image:
+      repeating-linear-gradient(0deg,  transparent, transparent 59px, var(--gold-faint) 60px),
+      repeating-linear-gradient(90deg, transparent, transparent 59px, var(--gold-faint) 60px);
+    min-height: 100vh;
+    font-family: 'Shippori Mincho', serif;
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────────── */
+  .site-header {
+    text-align: center;
+    padding: 3.5rem 1rem 0;
+  }
+
+  .vermillion-bar {
+    width: 3px;
+    height: 64px;
+    background: var(--red);
+    margin: 0 auto 1.5rem;
+  }
+
+  .seal {
+    width: 90px;
+    height: 90px;
+    border: 2px solid var(--red-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.8rem;
+    position: relative;
+    background: var(--red);
+  }
+  .seal::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgba(255,255,255,.18);
+  }
+  .seal-inner {
+    width: 38px;
+    height: 38px;
+    border: 2px solid rgba(255,255,255,.3);
+    position: relative;
+  }
+  .seal-inner::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background: rgba(255,255,255,.12);
+  }
+
+  .site-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: .38em;
+    color: var(--cream-bright);
+    text-transform: uppercase;
+  }
+
+  .site-subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    color: var(--gold-text);
+    letter-spacing: .25em;
+    margin-top: .55rem;
+    text-transform: uppercase;
+  }
+
+  /* ── DIVIDER ─────────────────────────────────────────────── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 960px;
+    margin: 1.8rem auto;
+    padding: 0 2rem;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--gold); }
+  .divider-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .63rem;
+    color: var(--gold-dim);
+    letter-spacing: .3em;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  /* ── CONTROLS ────────────────────────────────────────────── */
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1.5rem .5rem;
+    flex-wrap: wrap;
+  }
+
+  .search-wrap { position: relative; display: flex; align-items: center; }
+  .search-wrap input {
+    background: var(--ink-mid);
+    border: 1px solid var(--gold-dead);
+    border-radius: 0;
+    color: var(--cream);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .78rem;
+    padding: .52rem 2.2rem .52rem 1rem;
+    width: 260px;
+    outline: none;
+    letter-spacing: .08em;
+    transition: border-color .22s, box-shadow .22s;
+  }
+  .search-wrap input:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(192,57,43,.12);
+  }
+  .search-wrap input::placeholder { color: var(--gold-trace); }
+  .search-icon {
+    position: absolute;
+    right: .75rem;
+    font-size: 13px;
+    color: var(--gold-dim);
+    pointer-events: none;
+    font-style: normal;
+  }
+
+  .count-pill {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    color: var(--gold-text);
+    letter-spacing: .18em;
+    border: 1px solid var(--gold-trace);
+    padding: .32rem 1rem;
+    background: var(--ink-mid);
+    white-space: nowrap;
+  }
+
+  /* ── GALLERY GRID ────────────────────────────────────────── */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
+    gap: 1px;
+    padding: 0 1.5rem 4rem;
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--gold);
+  }
+
+  /* ── AVATAR CELL ─────────────────────────────────────────── */
+  .av-cell {
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2rem .6rem 1rem;
+    cursor: pointer;
+    position: relative;
+    transition: background .2s;
+    overflow: hidden;
+    animation: fadeUp .35s ease both;
+  }
+
+  .av-cell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 0 solid var(--purple);
+    opacity: 0;
+    transition: opacity .22s, border-width .22s;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .av-cell:hover { background: #13100b; }
+
+  .av-cell:hover::before {
+    opacity: 1;
+    border-width: 2px;
+    box-shadow:
+      inset 0 0 14px rgba(155,89,182,.32),
+      0 0 18px rgba(155,89,182,.2),
+      0 0 42px rgba(155,89,182,.08);
+  }
+
+  .av-cell:hover .av-frame {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow:
+      0 0 20px rgba(155,89,182,.5),
+      0 0 44px rgba(155,89,182,.18);
+  }
+
+  /* corner brackets */
+  .corner { position: absolute; width: 9px; height: 9px; opacity: 0; transition: opacity .22s; z-index: 3; }
+  .corner-tl { top: 5px; left: 5px;  border-top:    1px solid var(--purple); border-left:   1px solid var(--purple); }
+  .corner-tr { top: 5px; right: 5px; border-top:    1px solid var(--purple); border-right:  1px solid var(--purple); }
+  .corner-bl { bottom: 5px; left: 5px;  border-bottom: 1px solid var(--purple); border-left:   1px solid var(--purple); }
+  .corner-br { bottom: 5px; right: 5px; border-bottom: 1px solid var(--purple); border-right:  1px solid var(--purple); }
+  .av-cell:hover .corner { opacity: 1; }
+
+  /* frame */
+  .av-frame {
+    width: 88px;
+    height: 88px;
+    border: 1px solid var(--gold-trace);
+    overflow: hidden;
+    position: relative;
+    transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+    background: var(--ink-light);
+    flex-shrink: 0;
+  }
+
+  .av-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* placeholder crosshatch */
+  .av-ph {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .av-ph svg { width: 38px; height: 38px; opacity: .14; }
+
+  /* code + hint */
+  .av-code {
+    margin-top: .78rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .58rem;
+    color: var(--gold-dim);
+    letter-spacing: .05em;
+    text-align: center;
+    word-break: break-all;
+    max-width: 128px;
+    line-height: 1.55;
+    transition: color .2s;
+  }
+  .av-cell:hover .av-code { color: var(--purple-light); }
+
+  .av-hint {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .56rem;
+    color: var(--gold-dead);
+    letter-spacing: .14em;
+    margin-top: .28rem;
+    opacity: 0;
+    transition: opacity .2s;
+    text-align: center;
+  }
+  .av-cell:hover .av-hint { opacity: 1; }
+
+  /* ── NO RESULTS ──────────────────────────────────────────── */
+  .no-res {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3.5rem 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .78rem;
+    color: var(--gold-dead);
+    letter-spacing: .2em;
+    display: none;
+    background: var(--ink);
+  }
+
+  /* ── TOAST ───────────────────────────────────────────────── */
+  .toast {
+    position: fixed;
+    bottom: 2.2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(14px);
+    background: var(--ink-mid);
+    border: 1px solid var(--purple);
+    color: var(--cream);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .74rem;
+    padding: .55rem 1.5rem;
+    letter-spacing: .1em;
+    opacity: 0;
+    transition: opacity .2s, transform .2s;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 28px rgba(155,89,182,.28);
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  .site-footer {
+    text-align: center;
+    padding: 1.5rem 1rem 3rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .6rem;
+    color: var(--gold-trace);
+    letter-spacing: .35em;
+    text-transform: uppercase;
+  }
+
+  /* ── ANIMATION ───────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .gallery { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+    .search-wrap input { width: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="vermillion-bar"></div>
+  <div class="seal"><div class="seal-inner"></div></div>
+  <div class="site-title">zxijz's Avatar Codex</div>
+  <div class="site-subtitle">psna · digital reliquary · zxijz</div>
+</header>
+
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-label">collection</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <input type="text" id="srch" placeholder="search PSNA code…" autocomplete="off" spellcheck="false" />
+    <i class="search-icon">⌕</i>
+  </div>
+  <div class="count-pill" id="countPill">loading…</div>
+</div>
+
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-label">index</div>
+  <div class="divider-line"></div>
+</div>
+
+<main class="gallery" id="gallery">
+  <div class="no-res" id="noRes">no results found</div>
+</main>
+
+<footer class="site-footer">avatar codex &nbsp;·&nbsp; psna matcher &nbsp;·&nbsp; zxijz</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const PHOTOS_DIR = 'photos/';
+  const PSNA_RE    = /PSNA[_\-]?([0-9A-Fa-f]+)/i;
+
+  const PH_SVG = `<svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="3" width="32" height="32" stroke="#c8b882" stroke-width="1"/>
+    <line x1="3" y1="3" x2="35" y2="35" stroke="#c8b882" stroke-width="1"/>
+    <line x1="35" y1="3" x2="3" y2="35" stroke="#c8b882" stroke-width="1"/>
+  </svg>`;
+
+  function extractPSNA(filename) {
+    const m = filename.match(PSNA_RE);
+    if (!m) return filename.replace(/\.[^.]+$/, '').toUpperCase();
+    return 'PSNA_' + m[1].toUpperCase();
+  }
+
+  const gallery   = document.getElementById('gallery');
+  const toast     = document.getElementById('toast');
+  const srch      = document.getElementById('srch');
+  const countPill = document.getElementById('countPill');
+  const noRes     = document.getElementById('noRes');
+
+  let ALL_DATA = [];
+  let toastTimer;
+
+  function makeCell(d, i) {
+    const cell = document.createElement('div');
+    cell.className = 'av-cell';
+    cell.style.animationDelay = Math.min(i * 18, 600) + 'ms';
+    cell.dataset.q = d.psna.toLowerCase();
+
+    ['tl','tr','bl','br'].forEach(pos => {
+      const c = document.createElement('div');
+      c.className = 'corner corner-' + pos;
+      cell.appendChild(c);
+    });
+
+    const frame = document.createElement('div');
+    frame.className = 'av-frame';
+
+    if (d.src) {
+      const img = document.createElement('img');
+      img.src   = d.src;
+      img.alt   = d.psna;
+      img.loading = 'lazy';
+      img.onerror = () => { img.remove(); frame.innerHTML = `<div class="av-ph">${PH_SVG}</div>`; };
+      frame.appendChild(img);
+    } else {
+      frame.innerHTML = `<div class="av-ph">${PH_SVG}</div>`;
+    }
+
+    const code = document.createElement('div');
+    code.className   = 'av-code';
+    code.textContent = d.psna;
+
+    const hint = document.createElement('div');
+    hint.className   = 'av-hint';
+    hint.textContent = 'click to copy';
+
+    cell.appendChild(frame);
+    cell.appendChild(code);
+    cell.appendChild(hint);
+
+    cell.addEventListener('click', () => {
+      navigator.clipboard.writeText(d.psna).catch(() => {});
+      toast.textContent = d.psna + ' — copied';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    });
+
+    return cell;
+  }
+
+  function render(q = '') {
+    gallery.querySelectorAll('.av-cell').forEach(c => c.remove());
+    const filtered = q
+      ? ALL_DATA.filter(d => d.psna.toLowerCase().includes(q))
+      : ALL_DATA;
+
+    noRes.style.display = filtered.length === 0 ? 'block' : 'none';
+    countPill.textContent = filtered.length.toLocaleString() + ' avatar' + (filtered.length !== 1 ? 's' : '');
+
+    const frag = document.createDocumentFragment();
+    filtered.forEach((d, i) => frag.appendChild(makeCell(d, i)));
+    gallery.appendChild(frag);
+  }
+
+  async function init() {
+    try {
+      const res = await fetch(PHOTOS_DIR + 'manifest.json');
+      if (!res.ok) throw new Error('manifest not found');
+      const files = await res.json();
+      ALL_DATA = files.map(f => ({
+        psna: extractPSNA(f),
+        src:  PHOTOS_DIR + f
+      }));
+    } catch {
+      countPill.textContent = 'manifest.json not found';
+      noRes.style.display = 'block';
+      noRes.textContent = 'Add photos/manifest.json to your repo — see README.';
+      return;
+    }
+    render();
+  }
+
+  srch.addEventListener('input', e => render(e.target.value.toLowerCase().trim()));
+
+  init();
+</script>
+
+</body>
+</html>
