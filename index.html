@@ -454,6 +454,7 @@
 
   let ALL_DATA = [], FILTERED = [];
   let winStart = 0, winEnd = 0;
+  let galOffsetTop = 0; // cached absolute top of gallery element
   let toastTimer, searchTimer, scrollTimer, lbCopyTimer, imgObserver;
 
   // ── Toast ─────────────────────────────────────────────────────────────────
@@ -614,13 +615,18 @@
     setSpacers(cols, cellH);
   }
 
+  function cacheGalOffset() {
+    let el = gallery, top = 0;
+    while (el) { top += el.offsetTop; el = el.offsetParent; }
+    galOffsetTop = top;
+  }
+
   function calcWindow() {
     const { cols, cellH } = getGridMetrics();
-    const galTop  = gallery.getBoundingClientRect().top + window.scrollY;
     const scrollY = window.scrollY;
     const winH    = window.innerHeight;
-    const topRow  = Math.max(0, Math.floor((scrollY - galTop - OVERSCAN) / cellH));
-    const botRow  = Math.ceil((scrollY + winH - galTop + OVERSCAN) / cellH);
+    const topRow  = Math.max(0, Math.floor((scrollY - galOffsetTop - OVERSCAN) / cellH));
+    const botRow  = Math.ceil((scrollY + winH - galOffsetTop + OVERSCAN) / cellH);
     return {
       ideal_s: Math.max(0, topRow * cols - BATCH),
       ideal_e: Math.min(FILTERED.length, botRow * cols + BATCH)
@@ -643,6 +649,8 @@
     countPill.textContent = FILTERED.length.toLocaleString() + ' avatar' + (FILTERED.length !== 1 ? 's' : '');
     if (FILTERED.length === 0) return;
     renderSlice(0, Math.min(FILTERED.length, BATCH * 2));
+    // cache after first render so layout is stable
+    requestAnimationFrame(cacheGalOffset);
   }
 
   srch.addEventListener('input', e => {
@@ -661,6 +669,7 @@
 
   window.addEventListener('resize', () => {
     if (FILTERED.length === 0) return;
+    cacheGalOffset();
     const { cols, cellH } = getGridMetrics();
     setSpacers(cols, cellH);
   }, { passive: true });
