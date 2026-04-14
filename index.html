@@ -142,7 +142,7 @@
     white-space: nowrap;
   }
 
-  /* ── GALLERY VIRTUAL SCROLL ── */
+  /* ── GALLERY ── */
   .gallery-wrap {
     max-width: 960px;
     margin: 0 auto;
@@ -163,9 +163,8 @@
   .av-cell {
     background: var(--ink);
     display: flex; flex-direction: column; align-items: center;
-    padding: 1.2rem .6rem 1rem;
+    padding: 1.2rem .6rem .8rem;
     cursor: pointer; position: relative;
-    /* hover-out only */
     transition: background 200ms;
     overflow: hidden;
   }
@@ -173,50 +172,36 @@
   .av-cell::before {
     content: ''; position: absolute; inset: 0;
     border: 0px solid var(--purple); opacity: 0;
-    /* instant on, gentle off */
     transition: opacity 200ms, border-width 200ms;
     pointer-events: none; z-index: 2;
   }
 
-  /* ---- HOVER-IN: instant snap ---- */
-  .av-cell:hover {
-    background: #13100b;
-    transition: none;          /* kill the exit transition on enter */
-  }
+  .av-cell:hover { background: #13100b; transition: none; }
   .av-cell:hover::before {
     opacity: 1; border-width: 2px;
     box-shadow:
       inset 0 0 14px rgba(155,89,182,.32),
       0 0 18px rgba(155,89,182,.2),
       0 0 42px rgba(155,89,182,.08);
-    transition: none;          /* instant */
+    transition: none;
   }
   .av-cell:hover .av-frame {
     transform: scale(1.1) translateY(-3px);
     box-shadow: 0 0 20px rgba(155,89,182,.5), 0 0 44px rgba(155,89,182,.18);
-    transition: none;          /* instant */
+    transition: none;
   }
 
-  .corner {
-    position: absolute; width: 9px; height: 9px;
-    /* gentle fade-out only */
-    opacity: 0; transition: opacity 200ms;
-    z-index: 3;
-  }
+  .corner { position: absolute; width: 9px; height: 9px; opacity: 0; transition: opacity 200ms; z-index: 3; }
   .corner-tl { top:5px; left:5px;   border-top:1px solid var(--purple); border-left:1px solid var(--purple); }
   .corner-tr { top:5px; right:5px;  border-top:1px solid var(--purple); border-right:1px solid var(--purple); }
   .corner-bl { bottom:5px; left:5px;  border-bottom:1px solid var(--purple); border-left:1px solid var(--purple); }
   .corner-br { bottom:5px; right:5px; border-bottom:1px solid var(--purple); border-right:1px solid var(--purple); }
-  .av-cell:hover .corner {
-    opacity: 1;
-    transition: none;          /* instant */
-  }
+  .av-cell:hover .corner { opacity: 1; transition: none; }
 
   .av-frame {
     width: 88px; height: 88px;
     border: 1px solid var(--gold-trace);
     overflow: hidden; position: relative;
-    /* gentle exit only */
     transition: transform 280ms cubic-bezier(.34,1.56,.64,1), box-shadow 250ms;
     background: var(--ink-light);
     flex-shrink: 0;
@@ -240,24 +225,36 @@
     font-size: .58rem; color: var(--gold-dim);
     letter-spacing: .05em; text-align: center;
     word-break: break-all; max-width: 128px;
-    line-height: 1.55;
-    transition: color 200ms;
+    line-height: 1.55; transition: color 200ms;
   }
-  .av-cell:hover .av-code {
-    color: var(--purple-light);
-    transition: none;
-  }
+  .av-cell:hover .av-code { color: var(--purple-light); transition: none; }
 
-  .av-hint {
+  /* ── COPY PSNA BUTTON (under each card) ── */
+  .av-copy-btn {
+    margin-top: .45rem;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: .56rem; color: var(--gold-dead);
-    letter-spacing: .14em; margin-top: .28rem;
-    opacity: 0; transition: opacity 200ms;
-    text-align: center;
+    font-size: .52rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    border: 1px solid var(--gold-trace);
+    background: transparent;
+    color: var(--gold-dead);
+    padding: .22rem .6rem;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative; z-index: 4;
+    transition: color 200ms, border-color 200ms, background 200ms;
   }
-  .av-cell:hover .av-hint {
-    opacity: 1;
+  .av-copy-btn:hover {
+    color: var(--cream);
+    border-color: var(--purple);
+    background: rgba(155,89,182,.18);
     transition: none;
+  }
+  .av-copy-btn.copied {
+    color: #7ecfa0;
+    border-color: #3a6a50;
+    background: rgba(58,106,80,.12);
   }
 
   /* ── NO RESULTS ── */
@@ -285,6 +282,78 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 8888;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(6,4,2,.9);
+    opacity: 0; pointer-events: none;
+    transition: opacity .18s;
+  }
+  .lightbox.open { opacity: 1; pointer-events: all; }
+
+  .lb-inner {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 1.2rem;
+  }
+
+  .lb-img-wrap {
+    width: min(78vw, 78vh, 500px);
+    height: min(78vw, 78vh, 500px);
+    border: 1px solid rgba(180,140,80,.35);
+    background: var(--ink-light);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(155,89,182,.25), 0 0 120px rgba(155,89,182,.08);
+  }
+  .lb-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: contain; display: block;
+  }
+  .lb-img-wrap .av-ph { position: absolute; inset: 0; }
+  .lb-img-wrap .av-ph svg { width: 80px; height: 80px; }
+
+  .lb-corner { position: absolute; width: 20px; height: 20px; z-index: 2; }
+  .lb-corner-tl { top:8px; left:8px;   border-top:2px solid var(--purple); border-left:2px solid var(--purple); }
+  .lb-corner-tr { top:8px; right:8px;  border-top:2px solid var(--purple); border-right:2px solid var(--purple); }
+  .lb-corner-bl { bottom:8px; left:8px;  border-bottom:2px solid var(--purple); border-left:2px solid var(--purple); }
+  .lb-corner-br { bottom:8px; right:8px; border-bottom:2px solid var(--purple); border-right:2px solid var(--purple); }
+
+  .lb-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .9rem; color: var(--cream-bright);
+    letter-spacing: .18em; text-align: center;
+  }
+
+  .lb-actions { display: flex; gap: .75rem; align-items: center; }
+
+  .lb-copy-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase;
+    border: 1px solid var(--purple);
+    background: rgba(155,89,182,.14);
+    color: var(--purple-light);
+    padding: .42rem 1.2rem;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .lb-copy-btn:hover { background: rgba(155,89,182,.3); color: var(--cream); }
+  .lb-copy-btn.copied { color: #7ecfa0; border-color: #3a6a50; background: rgba(58,106,80,.18); }
+
+  .lb-close-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase;
+    border: 1px solid var(--gold-dead);
+    background: transparent;
+    color: var(--gold-dim);
+    padding: .42rem 1.2rem;
+    cursor: pointer;
+    transition: border-color .15s, color .15s;
+  }
+  .lb-close-btn:hover { border-color: var(--gold-text); color: var(--cream); }
+
   /* ── FOOTER ── */
   .site-footer {
     text-align: center; padding: 1.5rem 1rem 3rem;
@@ -296,6 +365,7 @@
   @media (max-width: 480px) {
     .gallery { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
     .search-wrap input { width: 200px; }
+    .lb-img-wrap { width: 90vw; height: 90vw; }
   }
 </style>
 </head>
@@ -338,11 +408,28 @@
 <footer class="site-footer">avatar codex &nbsp;·&nbsp; psna matcher &nbsp;·&nbsp; zxijz</footer>
 <div class="toast" id="toast"></div>
 
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <div class="lb-inner">
+    <div class="lb-img-wrap" id="lbImgWrap">
+      <div class="lb-corner lb-corner-tl"></div>
+      <div class="lb-corner lb-corner-tr"></div>
+      <div class="lb-corner lb-corner-bl"></div>
+      <div class="lb-corner lb-corner-br"></div>
+    </div>
+    <div class="lb-code" id="lbCode"></div>
+    <div class="lb-actions">
+      <button class="lb-copy-btn" id="lbCopyBtn">Copy PSNA</button>
+      <button class="lb-close-btn" id="lbCloseBtn">Close  ×</button>
+    </div>
+  </div>
+</div>
+
 <script>
   const PHOTOS_DIR = 'photos/';
   const PSNA_RE    = /PSNA[_\-]?([0-9A-Fa-f]+)/i;
-  const BATCH      = 120;   // cells per rendered window
-  const OVERSCAN   = 200;   // px to render beyond viewport edges
+  const BATCH      = 120;
+  const OVERSCAN   = 200;
 
   const PH_SVG = `<svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="32" height="32" stroke="#c8b882" stroke-width="1"/><line x1="3" y1="3" x2="35" y2="35" stroke="#c8b882" stroke-width="1"/><line x1="35" y1="3" x2="3" y2="35" stroke="#c8b882" stroke-width="1"/></svg>`;
 
@@ -352,24 +439,84 @@
     return 'PSNA_' + m[1].toUpperCase();
   }
 
-  const gallery    = document.getElementById('gallery');
-  const toast      = document.getElementById('toast');
-  const srch       = document.getElementById('srch');
-  const countPill  = document.getElementById('countPill');
-  const noRes      = document.getElementById('noRes');
-  const spacerTop  = document.getElementById('spacer-top');
-  const spacerBot  = document.getElementById('spacer-bottom');
+  const gallery   = document.getElementById('gallery');
+  const toast     = document.getElementById('toast');
+  const srch      = document.getElementById('srch');
+  const countPill = document.getElementById('countPill');
+  const noRes     = document.getElementById('noRes');
+  const spacerTop = document.getElementById('spacer-top');
+  const spacerBot = document.getElementById('spacer-bottom');
+  const lightbox  = document.getElementById('lightbox');
+  const lbImgWrap = document.getElementById('lbImgWrap');
+  const lbCode    = document.getElementById('lbCode');
+  const lbCopyBtn = document.getElementById('lbCopyBtn');
+  const lbCloseBtn= document.getElementById('lbCloseBtn');
 
-  let ALL_DATA     = [];
-  let FILTERED     = [];
-  let winStart     = 0;
-  let winEnd       = 0;
-  let toastTimer;
-  let searchTimer;
-  let scrollTimer;
-  let imgObserver;
+  let ALL_DATA = [], FILTERED = [];
+  let winStart = 0, winEnd = 0;
+  let toastTimer, searchTimer, scrollTimer, lbCopyTimer, imgObserver;
 
-  // ── Lazy image loader ──────────────────────────────────────────────────────
+  // ── Toast ─────────────────────────────────────────────────────────────────
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  // ── Copy helper ───────────────────────────────────────────────────────────
+  function copyPSNA(psna, btn) {
+    navigator.clipboard.writeText(psna).catch(() => {});
+    showToast(psna + ' — copied');
+    if (!btn) return;
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    clearTimeout(btn._copyTimer);
+    btn._copyTimer = setTimeout(() => {
+      btn.textContent = orig;
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+
+  // ── Lightbox ──────────────────────────────────────────────────────────────
+  function openLightbox(d) {
+    // rebuild image area (keep corner divs)
+    const corners = [...lbImgWrap.querySelectorAll('.lb-corner')];
+    lbImgWrap.innerHTML = '';
+    corners.forEach(c => lbImgWrap.appendChild(c));
+
+    if (d.src) {
+      const img = document.createElement('img');
+      img.src = d.src;
+      img.alt = d.psna;
+      lbImgWrap.appendChild(img);
+    } else {
+      const ph = document.createElement('div');
+      ph.className = 'av-ph';
+      ph.innerHTML = PH_SVG;
+      lbImgWrap.appendChild(ph);
+    }
+
+    lbCode.textContent = d.psna;
+    lbCopyBtn.textContent = 'Copy PSNA';
+    lbCopyBtn.classList.remove('copied');
+    lbCopyBtn.onclick = () => copyPSNA(d.psna, lbCopyBtn);
+
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lbCloseBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // ── Lazy image observer ───────────────────────────────────────────────────
   function initObserver() {
     imgObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -391,7 +538,7 @@
     }, { rootMargin: '400px 0px' });
   }
 
-  // ── Build one cell ─────────────────────────────────────────────────────────
+  // ── Build one cell ────────────────────────────────────────────────────────
   function makeCell(d) {
     const cell = document.createElement('div');
     cell.className = 'av-cell';
@@ -419,35 +566,34 @@
     code.className = 'av-code';
     code.textContent = d.psna;
 
-    const hint = document.createElement('div');
-    hint.className = 'av-hint';
-    hint.textContent = 'click to copy';
+    // "Copy PSNA" button — stopPropagation so it doesn't also open lightbox
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'av-copy-btn';
+    copyBtn.textContent = 'Copy PSNA';
+    copyBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      copyPSNA(d.psna, copyBtn);
+    });
 
     cell.appendChild(frame);
     cell.appendChild(code);
-    cell.appendChild(hint);
+    cell.appendChild(copyBtn);
 
-    cell.addEventListener('click', () => {
-      navigator.clipboard.writeText(d.psna).catch(() => {});
-      toast.textContent = d.psna + ' — copied';
-      toast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
-    });
+    // clicking the cell (not the button) opens lightbox
+    cell.addEventListener('click', () => openLightbox(d));
 
     return cell;
   }
 
-  // ── Get live grid metrics ──────────────────────────────────────────────────
+  // ── Virtual scroll helpers ────────────────────────────────────────────────
   function getGridMetrics() {
-    const gw   = gallery.getBoundingClientRect().width || 900;
+    const gw = gallery.getBoundingClientRect().width || 900;
     const cols = Math.max(1, Math.floor(gw / 139));
     const firstCell = gallery.querySelector('.av-cell');
-    const cellH = firstCell ? firstCell.getBoundingClientRect().height : 162;
+    const cellH = firstCell ? firstCell.getBoundingClientRect().height : 178;
     return { cols, cellH };
   }
 
-  // ── Update spacer heights ──────────────────────────────────────────────────
   function setSpacers(cols, cellH) {
     const topRows = Math.floor(winStart / cols);
     const botRows = Math.ceil((FILTERED.length - winEnd) / cols);
@@ -455,65 +601,50 @@
     spacerBot.style.height = Math.max(0, botRows * cellH) + 'px';
   }
 
-  // ── Render a slice of FILTERED into the grid ───────────────────────────────
   function renderSlice(start, end) {
     start = Math.max(0, start);
     end   = Math.min(FILTERED.length, end);
     if (start === winStart && end === winEnd) return;
-
     const frag = document.createDocumentFragment();
-    for (let i = start; i < end; i++) {
-      frag.appendChild(makeCell(FILTERED[i]));
-    }
+    for (let i = start; i < end; i++) frag.appendChild(makeCell(FILTERED[i]));
     gallery.innerHTML = '';
     gallery.appendChild(frag);
-    winStart = start;
-    winEnd   = end;
-
+    winStart = start; winEnd = end;
     const { cols, cellH } = getGridMetrics();
     setSpacers(cols, cellH);
   }
 
-  // ── Determine ideal window from scroll position ────────────────────────────
   function calcWindow() {
     const { cols, cellH } = getGridMetrics();
-    const galTop   = gallery.getBoundingClientRect().top + window.scrollY;
-    const scrollY  = window.scrollY;
-    const winH     = window.innerHeight;
-
-    const topRow   = Math.max(0, Math.floor((scrollY - galTop - OVERSCAN) / cellH));
-    const botRow   = Math.ceil((scrollY + winH - galTop + OVERSCAN) / cellH);
-
-    const ideal_s  = Math.max(0, topRow * cols - BATCH);
-    const ideal_e  = Math.min(FILTERED.length, botRow * cols + BATCH);
-
-    return { ideal_s, ideal_e };
+    const galTop  = gallery.getBoundingClientRect().top + window.scrollY;
+    const scrollY = window.scrollY;
+    const winH    = window.innerHeight;
+    const topRow  = Math.max(0, Math.floor((scrollY - galTop - OVERSCAN) / cellH));
+    const botRow  = Math.ceil((scrollY + winH - galTop + OVERSCAN) / cellH);
+    return {
+      ideal_s: Math.max(0, topRow * cols - BATCH),
+      ideal_e: Math.min(FILTERED.length, botRow * cols + BATCH)
+    };
   }
 
   function checkScroll() {
     if (FILTERED.length === 0) return;
     const { ideal_s, ideal_e } = calcWindow();
-    if (ideal_s < winStart || ideal_e > winEnd) {
-      renderSlice(ideal_s, ideal_e);
-    }
+    if (ideal_s < winStart || ideal_e > winEnd) renderSlice(ideal_s, ideal_e);
   }
 
-  // ── Full reset (new data or new search) ───────────────────────────────────
   function fullReset() {
     window.scrollTo({ top: 0 });
     gallery.innerHTML = '';
     winStart = 0; winEnd = 0;
     spacerTop.style.height = '0px';
-    spacerBot.style.height = '0px';
-
+    spacerBot.style.height  = '0px';
     noRes.style.display = FILTERED.length === 0 ? 'block' : 'none';
     countPill.textContent = FILTERED.length.toLocaleString() + ' avatar' + (FILTERED.length !== 1 ? 's' : '');
-
     if (FILTERED.length === 0) return;
     renderSlice(0, Math.min(FILTERED.length, BATCH * 2));
   }
 
-  // ── Search ─────────────────────────────────────────────────────────────────
   srch.addEventListener('input', e => {
     clearTimeout(searchTimer);
     searchTimer = setTimeout(() => {
@@ -523,13 +654,9 @@
     }, 180);
   });
 
-  // ── Scroll listener (throttled) ────────────────────────────────────────────
   window.addEventListener('scroll', () => {
     if (scrollTimer) return;
-    scrollTimer = requestAnimationFrame(() => {
-      checkScroll();
-      scrollTimer = null;
-    });
+    scrollTimer = requestAnimationFrame(() => { checkScroll(); scrollTimer = null; });
   }, { passive: true });
 
   window.addEventListener('resize', () => {
@@ -538,7 +665,7 @@
     setSpacers(cols, cellH);
   }, { passive: true });
 
-  // ── Bootstrap ──────────────────────────────────────────────────────────────
+  // ── Bootstrap ─────────────────────────────────────────────────────────────
   async function init() {
     initObserver();
     try {
