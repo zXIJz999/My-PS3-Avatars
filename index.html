@@ -43,120 +43,58 @@
 
   /* ── HEADER ── */
   .site-header { text-align: center; padding: 3.5rem 1rem 0; }
-
-  .vermillion-bar {
-    width: 3px; height: 64px;
-    background: var(--red);
-    margin: 0 auto 1.5rem;
-  }
-
+  .vermillion-bar { width: 3px; height: 64px; background: var(--red); margin: 0 auto 1.5rem; }
   .seal {
-    width: 90px; height: 90px;
-    border: 2px solid var(--red-dark);
+    width: 90px; height: 90px; border: 2px solid var(--red-dark);
     display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1.8rem;
-    position: relative;
-    background: var(--red);
+    margin: 0 auto 1.8rem; position: relative; background: var(--red);
   }
-  .seal::before {
-    content: ''; position: absolute; inset: 5px;
-    border: 1px solid rgba(255,255,255,.18);
-  }
-  .seal-inner {
-    width: 38px; height: 38px;
-    border: 2px solid rgba(255,255,255,.3);
-    position: relative;
-  }
-  .seal-inner::after {
-    content: ''; position: absolute; inset: 5px;
-    background: rgba(255,255,255,.12);
-  }
-
+  .seal::before { content: ''; position: absolute; inset: 5px; border: 1px solid rgba(255,255,255,.18); }
+  .seal-inner { width: 38px; height: 38px; border: 2px solid rgba(255,255,255,.3); position: relative; }
+  .seal-inner::after { content: ''; position: absolute; inset: 5px; background: rgba(255,255,255,.12); }
   .site-title {
     font-family: 'Shippori Mincho', serif;
-    font-size: clamp(1.2rem, 3vw, 1.6rem);
-    font-weight: 700;
-    letter-spacing: .38em;
-    color: var(--cream-bright);
-    text-transform: uppercase;
+    font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 700;
+    letter-spacing: .38em; color: var(--cream-bright); text-transform: uppercase;
   }
-
   .site-subtitle {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .68rem;
-    color: var(--gold-text);
-    letter-spacing: .25em;
-    margin-top: .55rem;
-    text-transform: uppercase;
+    font-family: 'IBM Plex Mono', monospace; font-size: .68rem;
+    color: var(--gold-text); letter-spacing: .25em; margin-top: .55rem; text-transform: uppercase;
   }
 
   /* ── DIVIDER ── */
-  .divider {
-    display: flex; align-items: center; gap: 1rem;
-    max-width: 960px; margin: 1.8rem auto; padding: 0 2rem;
-  }
+  .divider { display: flex; align-items: center; gap: 1rem; max-width: 960px; margin: 1.8rem auto; padding: 0 2rem; }
   .divider-line { flex: 1; height: 1px; background: var(--gold); }
   .divider-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .63rem; color: var(--gold-dim);
+    font-family: 'IBM Plex Mono', monospace; font-size: .63rem; color: var(--gold-dim);
     letter-spacing: .3em; white-space: nowrap; text-transform: uppercase;
   }
 
   /* ── CONTROLS ── */
-  .controls {
-    display: flex; align-items: center; justify-content: center;
-    gap: 1rem; padding: 0 1.5rem .5rem; flex-wrap: wrap;
-  }
-
+  .controls { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 0 1.5rem .5rem; flex-wrap: wrap; }
   .search-wrap { position: relative; display: flex; align-items: center; }
   .search-wrap input {
-    background: var(--ink-mid);
-    border: 1px solid var(--gold-dead);
-    border-radius: 0;
-    color: var(--cream);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .78rem;
-    padding: .52rem 2.2rem .52rem 1rem;
-    width: 260px; outline: none;
-    letter-spacing: .08em;
-    transition: border-color .22s, box-shadow .22s;
+    background: var(--ink-mid); border: 1px solid var(--gold-dead); border-radius: 0;
+    color: var(--cream); font-family: 'IBM Plex Mono', monospace; font-size: .78rem;
+    padding: .52rem 2.2rem .52rem 1rem; width: 260px; outline: none;
+    letter-spacing: .08em; transition: border-color .22s, box-shadow .22s;
   }
-  .search-wrap input:focus {
-    border-color: var(--red);
-    box-shadow: 0 0 0 3px rgba(192,57,43,.12);
-  }
+  .search-wrap input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,57,43,.12); }
   .search-wrap input::placeholder { color: var(--gold-trace); }
-  .search-icon {
-    position: absolute; right: .75rem;
-    font-size: 13px; color: var(--gold-dim);
-    pointer-events: none; font-style: normal;
-  }
-
+  .search-icon { position: absolute; right: .75rem; font-size: 13px; color: var(--gold-dim); pointer-events: none; font-style: normal; }
   .count-pill {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .68rem; color: var(--gold-text);
-    letter-spacing: .18em;
-    border: 1px solid var(--gold-trace);
-    padding: .32rem 1rem;
-    background: var(--ink-mid);
-    white-space: nowrap;
+    font-family: 'IBM Plex Mono', monospace; font-size: .68rem; color: var(--gold-text);
+    letter-spacing: .18em; border: 1px solid var(--gold-trace); padding: .32rem 1rem;
+    background: var(--ink-mid); white-space: nowrap;
   }
 
   /* ── GALLERY ── */
-  .gallery-wrap {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 1.5rem 4rem;
-  }
-
-  #spacer-top, #spacer-bottom { width: 100%; }
-
+  .gallery-wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 4rem; }
   .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
     gap: 1px;
     background: var(--gold);
-    will-change: contents;
   }
 
   /* ── AVATAR CELL ── */
@@ -168,28 +106,19 @@
     transition: background 200ms;
     overflow: hidden;
   }
-
   .av-cell::before {
     content: ''; position: absolute; inset: 0;
     border: 0px solid var(--purple); opacity: 0;
     transition: opacity 200ms, border-width 200ms;
     pointer-events: none; z-index: 2;
   }
-
   .av-cell:hover { background: #13100b; transition: none; }
   .av-cell:hover::before {
     opacity: 1; border-width: 2px;
-    box-shadow:
-      inset 0 0 14px rgba(155,89,182,.32),
-      0 0 18px rgba(155,89,182,.2),
-      0 0 42px rgba(155,89,182,.08);
+    box-shadow: inset 0 0 14px rgba(155,89,182,.32), 0 0 18px rgba(155,89,182,.2), 0 0 42px rgba(155,89,182,.08);
     transition: none;
   }
-  .av-cell:hover .av-frame {
-    transform: scale(1.1) translateY(-3px);
-    box-shadow: 0 0 20px rgba(155,89,182,.5), 0 0 44px rgba(155,89,182,.18);
-    transition: none;
-  }
+  .av-cell:hover .av-frame { transform: scale(1.1) translateY(-3px); box-shadow: 0 0 20px rgba(155,89,182,.5), 0 0 44px rgba(155,89,182,.18); transition: none; }
 
   .corner { position: absolute; width: 9px; height: 9px; opacity: 0; transition: opacity 200ms; z-index: 3; }
   .corner-tl { top:5px; left:5px;   border-top:1px solid var(--purple); border-left:1px solid var(--purple); }
@@ -199,86 +128,50 @@
   .av-cell:hover .corner { opacity: 1; transition: none; }
 
   .av-frame {
-    width: 88px; height: 88px;
-    border: 1px solid var(--gold-trace);
+    width: 88px; height: 88px; border: 1px solid var(--gold-trace);
     overflow: hidden; position: relative;
     transition: transform 280ms cubic-bezier(.34,1.56,.64,1), box-shadow 250ms;
-    background: var(--ink-light);
-    flex-shrink: 0;
+    background: var(--ink-light); flex-shrink: 0;
   }
-  .av-frame img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-    opacity: 0; transition: opacity .3s;
-  }
-  .av-frame img.loaded { opacity: 1; }
-
-  .av-ph {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-  }
+  .av-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .av-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
   .av-ph svg { width: 38px; height: 38px; opacity: .14; }
 
   .av-code {
-    margin-top: .78rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .58rem; color: var(--gold-dim);
-    letter-spacing: .05em; text-align: center;
-    word-break: break-all; max-width: 128px;
+    margin-top: .78rem; font-family: 'IBM Plex Mono', monospace;
+    font-size: .58rem; color: var(--gold-dim); letter-spacing: .05em;
+    text-align: center; word-break: break-all; max-width: 128px;
     line-height: 1.55; transition: color 200ms;
   }
   .av-cell:hover .av-code { color: var(--purple-light); transition: none; }
 
-  /* ── COPY PSNA BUTTON (under each card) ── */
   .av-copy-btn {
-    margin-top: .45rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .52rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    border: 1px solid var(--gold-trace);
-    background: transparent;
-    color: var(--gold-dead);
-    padding: .22rem .6rem;
-    cursor: pointer;
-    white-space: nowrap;
-    position: relative; z-index: 4;
+    margin-top: .45rem; font-family: 'IBM Plex Mono', monospace;
+    font-size: .52rem; letter-spacing: .12em; text-transform: uppercase;
+    border: 1px solid var(--gold-trace); background: transparent;
+    color: var(--gold-dead); padding: .22rem .6rem; cursor: pointer;
+    white-space: nowrap; position: relative; z-index: 4;
     transition: color 200ms, border-color 200ms, background 200ms;
   }
-  .av-copy-btn:hover {
-    color: var(--cream);
-    border-color: var(--purple);
-    background: rgba(155,89,182,.18);
-    transition: none;
-  }
-  .av-copy-btn.copied {
-    color: #7ecfa0;
-    border-color: #3a6a50;
-    background: rgba(58,106,80,.12);
-  }
+  .av-copy-btn:hover { color: var(--cream); border-color: var(--purple); background: rgba(155,89,182,.18); transition: none; }
+  .av-copy-btn.copied { color: #7ecfa0; border-color: #3a6a50; background: rgba(58,106,80,.12); }
 
   /* ── NO RESULTS ── */
   .no-res {
     text-align: center; padding: 3.5rem 1rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .78rem; color: var(--gold-dead);
-    letter-spacing: .2em; display: none;
+    font-family: 'IBM Plex Mono', monospace; font-size: .78rem;
+    color: var(--gold-dead); letter-spacing: .2em; display: none;
   }
 
   /* ── TOAST ── */
   .toast {
     position: fixed; bottom: 2.2rem; left: 50%;
     transform: translateX(-50%) translateY(14px);
-    background: var(--ink-mid);
-    border: 1px solid var(--purple);
-    color: var(--cream);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .74rem; padding: .55rem 1.5rem;
-    letter-spacing: .1em; opacity: 0;
-    transition: opacity .2s, transform .2s;
+    background: var(--ink-mid); border: 1px solid var(--purple); color: var(--cream);
+    font-family: 'IBM Plex Mono', monospace; font-size: .74rem; padding: .55rem 1.5rem;
+    letter-spacing: .1em; opacity: 0; transition: opacity .2s, transform .2s;
     pointer-events: none; z-index: 9999;
-    box-shadow: 0 0 28px rgba(155,89,182,.28);
-    white-space: nowrap;
+    box-shadow: 0 0 28px rgba(155,89,182,.28); white-space: nowrap;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -286,30 +179,20 @@
   .lightbox {
     position: fixed; inset: 0; z-index: 8888;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(6,4,2,.9);
-    opacity: 0; pointer-events: none;
-    transition: opacity .18s;
+    background: rgba(6,4,2,.92);
+    opacity: 0; pointer-events: none; transition: opacity .18s;
   }
   .lightbox.open { opacity: 1; pointer-events: all; }
 
-  .lb-inner {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 1.2rem;
-  }
+  .lb-inner { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
 
   .lb-img-wrap {
-    width: min(78vw, 78vh, 500px);
-    height: min(78vw, 78vh, 500px);
-    border: 1px solid rgba(180,140,80,.35);
-    background: var(--ink-light);
-    position: relative;
-    overflow: hidden;
+    width: min(78vw, 78vh, 520px); height: min(78vw, 78vh, 520px);
+    border: 1px solid rgba(180,140,80,.35); background: var(--ink-light);
+    position: relative; overflow: hidden;
     box-shadow: 0 0 60px rgba(155,89,182,.25), 0 0 120px rgba(155,89,182,.08);
   }
-  .lb-img-wrap img {
-    width: 100%; height: 100%;
-    object-fit: contain; display: block;
-  }
+  .lb-img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
   .lb-img-wrap .av-ph { position: absolute; inset: 0; }
   .lb-img-wrap .av-ph svg { width: 80px; height: 80px; }
 
@@ -319,37 +202,22 @@
   .lb-corner-bl { bottom:8px; left:8px;  border-bottom:2px solid var(--purple); border-left:2px solid var(--purple); }
   .lb-corner-br { bottom:8px; right:8px; border-bottom:2px solid var(--purple); border-right:2px solid var(--purple); }
 
-  .lb-code {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .9rem; color: var(--cream-bright);
-    letter-spacing: .18em; text-align: center;
-  }
-
+  .lb-code { font-family: 'IBM Plex Mono', monospace; font-size: .9rem; color: var(--cream-bright); letter-spacing: .18em; text-align: center; }
   .lb-actions { display: flex; gap: .75rem; align-items: center; }
 
   .lb-copy-btn {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .68rem; letter-spacing: .14em;
-    text-transform: uppercase;
-    border: 1px solid var(--purple);
-    background: rgba(155,89,182,.14);
-    color: var(--purple-light);
-    padding: .42rem 1.2rem;
-    cursor: pointer;
-    transition: background .15s, color .15s;
+    font-family: 'IBM Plex Mono', monospace; font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase; border: 1px solid var(--purple);
+    background: rgba(155,89,182,.14); color: var(--purple-light);
+    padding: .42rem 1.2rem; cursor: pointer; transition: background .15s, color .15s;
   }
   .lb-copy-btn:hover { background: rgba(155,89,182,.3); color: var(--cream); }
   .lb-copy-btn.copied { color: #7ecfa0; border-color: #3a6a50; background: rgba(58,106,80,.18); }
 
   .lb-close-btn {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .68rem; letter-spacing: .14em;
-    text-transform: uppercase;
-    border: 1px solid var(--gold-dead);
-    background: transparent;
-    color: var(--gold-dim);
-    padding: .42rem 1.2rem;
-    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace; font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase; border: 1px solid var(--gold-dead);
+    background: transparent; color: var(--gold-dim); padding: .42rem 1.2rem; cursor: pointer;
     transition: border-color .15s, color .15s;
   }
   .lb-close-btn:hover { border-color: var(--gold-text); color: var(--cream); }
@@ -357,9 +225,8 @@
   /* ── FOOTER ── */
   .site-footer {
     text-align: center; padding: 1.5rem 1rem 3rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: .6rem; color: var(--gold-trace);
-    letter-spacing: .35em; text-transform: uppercase;
+    font-family: 'IBM Plex Mono', monospace; font-size: .6rem;
+    color: var(--gold-trace); letter-spacing: .35em; text-transform: uppercase;
   }
 
   @media (max-width: 480px) {
@@ -378,11 +245,7 @@
   <div class="site-subtitle">psna · digital reliquary · zxijz</div>
 </header>
 
-<div class="divider">
-  <div class="divider-line"></div>
-  <div class="divider-label">collection</div>
-  <div class="divider-line"></div>
-</div>
+<div class="divider"><div class="divider-line"></div><div class="divider-label">collection</div><div class="divider-line"></div></div>
 
 <div class="controls">
   <div class="search-wrap">
@@ -392,23 +255,17 @@
   <div class="count-pill" id="countPill">loading…</div>
 </div>
 
-<div class="divider">
-  <div class="divider-line"></div>
-  <div class="divider-label">index</div>
-  <div class="divider-line"></div>
-</div>
+<div class="divider"><div class="divider-line"></div><div class="divider-label">index</div><div class="divider-line"></div></div>
 
 <div class="gallery-wrap">
-  <div id="spacer-top"></div>
   <div class="gallery" id="gallery"></div>
-  <div id="spacer-bottom"></div>
   <div class="no-res" id="noRes">no results found</div>
 </div>
 
 <footer class="site-footer">avatar codex &nbsp;·&nbsp; psna matcher &nbsp;·&nbsp; zxijz</footer>
 <div class="toast" id="toast"></div>
 
-<!-- ── LIGHTBOX ── -->
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
   <div class="lb-inner">
     <div class="lb-img-wrap" id="lbImgWrap">
@@ -420,7 +277,7 @@
     <div class="lb-code" id="lbCode"></div>
     <div class="lb-actions">
       <button class="lb-copy-btn" id="lbCopyBtn">Copy PSNA</button>
-      <button class="lb-close-btn" id="lbCloseBtn">Close  ×</button>
+      <button class="lb-close-btn" id="lbCloseBtn">Close ×</button>
     </div>
   </div>
 </div>
@@ -428,8 +285,6 @@
 <script>
   const PHOTOS_DIR = 'photos/';
   const PSNA_RE    = /PSNA[_\-]?([0-9A-Fa-f]+)/i;
-  const BATCH      = 120;
-  const OVERSCAN   = 200;
 
   const PH_SVG = `<svg viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="32" height="32" stroke="#c8b882" stroke-width="1"/><line x1="3" y1="3" x2="35" y2="35" stroke="#c8b882" stroke-width="1"/><line x1="35" y1="3" x2="3" y2="35" stroke="#c8b882" stroke-width="1"/></svg>`;
 
@@ -439,25 +294,21 @@
     return 'PSNA_' + m[1].toUpperCase();
   }
 
-  const gallery   = document.getElementById('gallery');
-  const toast     = document.getElementById('toast');
-  const srch      = document.getElementById('srch');
-  const countPill = document.getElementById('countPill');
-  const noRes     = document.getElementById('noRes');
-  const spacerTop = document.getElementById('spacer-top');
-  const spacerBot = document.getElementById('spacer-bottom');
-  const lightbox  = document.getElementById('lightbox');
-  const lbImgWrap = document.getElementById('lbImgWrap');
-  const lbCode    = document.getElementById('lbCode');
-  const lbCopyBtn = document.getElementById('lbCopyBtn');
-  const lbCloseBtn= document.getElementById('lbCloseBtn');
+  const gallery    = document.getElementById('gallery');
+  const toast      = document.getElementById('toast');
+  const srch       = document.getElementById('srch');
+  const countPill  = document.getElementById('countPill');
+  const noRes      = document.getElementById('noRes');
+  const lightbox   = document.getElementById('lightbox');
+  const lbImgWrap  = document.getElementById('lbImgWrap');
+  const lbCode     = document.getElementById('lbCode');
+  const lbCopyBtn  = document.getElementById('lbCopyBtn');
+  const lbCloseBtn = document.getElementById('lbCloseBtn');
 
   let ALL_DATA = [], FILTERED = [];
-  let winStart = 0, winEnd = 0;
-  let galOffsetTop = 0; // cached absolute top of gallery element
-  let toastTimer, searchTimer, scrollTimer, lbCopyTimer, imgObserver;
+  let toastTimer, searchTimer;
 
-  // ── Toast ─────────────────────────────────────────────────────────────────
+  /* ── Toast ─────────────────────────────────────────────────────────────── */
   function showToast(msg) {
     toast.textContent = msg;
     toast.classList.add('show');
@@ -465,7 +316,7 @@
     toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
   }
 
-  // ── Copy helper ───────────────────────────────────────────────────────────
+  /* ── Copy helper ────────────────────────────────────────────────────────── */
   function copyPSNA(psna, btn) {
     navigator.clipboard.writeText(psna).catch(() => {});
     showToast(psna + ' — copied');
@@ -473,16 +324,13 @@
     const orig = btn.textContent;
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
-    clearTimeout(btn._copyTimer);
-    btn._copyTimer = setTimeout(() => {
-      btn.textContent = orig;
-      btn.classList.remove('copied');
-    }, 2000);
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
   }
 
-  // ── Lightbox ──────────────────────────────────────────────────────────────
+  /* ── Lightbox ───────────────────────────────────────────────────────────── */
   function openLightbox(d) {
-    // rebuild image area (keep corner divs)
+    // Keep corners, clear everything else
     const corners = [...lbImgWrap.querySelectorAll('.lb-corner')];
     lbImgWrap.innerHTML = '';
     corners.forEach(c => lbImgWrap.appendChild(c));
@@ -517,29 +365,7 @@
   lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-  // ── Lazy image observer ───────────────────────────────────────────────────
-  function initObserver() {
-    imgObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const img = entry.target;
-        const src = img.dataset.src;
-        if (!src) return;
-        img.src = src;
-        delete img.dataset.src;
-        img.onload  = () => img.classList.add('loaded');
-        img.onerror = () => {
-          const ph = document.createElement('div');
-          ph.className = 'av-ph';
-          ph.innerHTML = PH_SVG;
-          img.parentNode && img.parentNode.replaceChild(ph, img);
-        };
-        imgObserver.unobserve(img);
-      });
-    }, { rootMargin: '400px 0px' });
-  }
-
-  // ── Build one cell ────────────────────────────────────────────────────────
+  /* ── Build one cell ─────────────────────────────────────────────────────── */
   function makeCell(d) {
     const cell = document.createElement('div');
     cell.className = 'av-cell';
@@ -555,10 +381,16 @@
 
     if (d.src) {
       const img = document.createElement('img');
-      img.dataset.src = d.src;
+      img.src = d.src;
       img.alt = d.psna;
+      img.loading = 'lazy'; // native lazy loading — no scroll math needed
+      img.onerror = () => {
+        const ph = document.createElement('div');
+        ph.className = 'av-ph';
+        ph.innerHTML = PH_SVG;
+        img.replaceWith(ph);
+      };
       frame.appendChild(img);
-      imgObserver.observe(img);
     } else {
       frame.innerHTML = `<div class="av-ph">${PH_SVG}</div>`;
     }
@@ -567,7 +399,6 @@
     code.className = 'av-code';
     code.textContent = d.psna;
 
-    // "Copy PSNA" button — stopPropagation so it doesn't also open lightbox
     const copyBtn = document.createElement('button');
     copyBtn.className = 'av-copy-btn';
     copyBtn.textContent = 'Copy PSNA';
@@ -580,103 +411,36 @@
     cell.appendChild(code);
     cell.appendChild(copyBtn);
 
-    // clicking the cell (not the button) opens lightbox
+    // Clicking the cell body (not the copy button) opens the lightbox
     cell.addEventListener('click', () => openLightbox(d));
 
     return cell;
   }
 
-  // ── Virtual scroll helpers ────────────────────────────────────────────────
-  function getGridMetrics() {
-    const gw = gallery.getBoundingClientRect().width || 900;
-    const cols = Math.max(1, Math.floor(gw / 139));
-    const firstCell = gallery.querySelector('.av-cell');
-    const cellH = firstCell ? firstCell.getBoundingClientRect().height : 178;
-    return { cols, cellH };
-  }
-
-  function setSpacers(cols, cellH) {
-    const topRows = Math.floor(winStart / cols);
-    const botRows = Math.ceil((FILTERED.length - winEnd) / cols);
-    spacerTop.style.height = Math.max(0, topRows * cellH) + 'px';
-    spacerBot.style.height = Math.max(0, botRows * cellH) + 'px';
-  }
-
-  function renderSlice(start, end) {
-    start = Math.max(0, start);
-    end   = Math.min(FILTERED.length, end);
-    if (start === winStart && end === winEnd) return;
-    const frag = document.createDocumentFragment();
-    for (let i = start; i < end; i++) frag.appendChild(makeCell(FILTERED[i]));
+  /* ── Render ─────────────────────────────────────────────────────────────── */
+  function render() {
     gallery.innerHTML = '';
-    gallery.appendChild(frag);
-    winStart = start; winEnd = end;
-    const { cols, cellH } = getGridMetrics();
-    setSpacers(cols, cellH);
-  }
-
-  function cacheGalOffset() {
-    let el = gallery, top = 0;
-    while (el) { top += el.offsetTop; el = el.offsetParent; }
-    galOffsetTop = top;
-  }
-
-  function calcWindow() {
-    const { cols, cellH } = getGridMetrics();
-    const scrollY = window.scrollY;
-    const winH    = window.innerHeight;
-    const topRow  = Math.max(0, Math.floor((scrollY - galOffsetTop - OVERSCAN) / cellH));
-    const botRow  = Math.ceil((scrollY + winH - galOffsetTop + OVERSCAN) / cellH);
-    return {
-      ideal_s: Math.max(0, topRow * cols - BATCH),
-      ideal_e: Math.min(FILTERED.length, botRow * cols + BATCH)
-    };
-  }
-
-  function checkScroll() {
-    if (FILTERED.length === 0) return;
-    const { ideal_s, ideal_e } = calcWindow();
-    if (ideal_s < winStart || ideal_e > winEnd) renderSlice(ideal_s, ideal_e);
-  }
-
-  function fullReset() {
-    window.scrollTo({ top: 0 });
-    gallery.innerHTML = '';
-    winStart = 0; winEnd = 0;
-    spacerTop.style.height = '0px';
-    spacerBot.style.height  = '0px';
     noRes.style.display = FILTERED.length === 0 ? 'block' : 'none';
     countPill.textContent = FILTERED.length.toLocaleString() + ' avatar' + (FILTERED.length !== 1 ? 's' : '');
     if (FILTERED.length === 0) return;
-    renderSlice(0, Math.min(FILTERED.length, BATCH * 2));
-    // cache after first render so layout is stable
-    requestAnimationFrame(cacheGalOffset);
+    const frag = document.createDocumentFragment();
+    FILTERED.forEach(d => frag.appendChild(makeCell(d)));
+    gallery.appendChild(frag);
   }
 
+  /* ── Search ─────────────────────────────────────────────────────────────── */
   srch.addEventListener('input', e => {
     clearTimeout(searchTimer);
     searchTimer = setTimeout(() => {
       const q = e.target.value.toLowerCase().trim();
       FILTERED = q ? ALL_DATA.filter(d => d.psna.toLowerCase().includes(q)) : ALL_DATA;
-      fullReset();
+      window.scrollTo({ top: 0 });
+      render();
     }, 180);
   });
 
-  window.addEventListener('scroll', () => {
-    if (scrollTimer) return;
-    scrollTimer = requestAnimationFrame(() => { checkScroll(); scrollTimer = null; });
-  }, { passive: true });
-
-  window.addEventListener('resize', () => {
-    if (FILTERED.length === 0) return;
-    cacheGalOffset();
-    const { cols, cellH } = getGridMetrics();
-    setSpacers(cols, cellH);
-  }, { passive: true });
-
-  // ── Bootstrap ─────────────────────────────────────────────────────────────
+  /* ── Bootstrap ──────────────────────────────────────────────────────────── */
   async function init() {
-    initObserver();
     try {
       const res = await fetch(PHOTOS_DIR + 'manifest.json');
       if (!res.ok) throw new Error();
@@ -684,12 +448,12 @@
       ALL_DATA = files.map(f => ({ psna: extractPSNA(f), src: PHOTOS_DIR + f }));
     } catch {
       countPill.textContent = 'manifest.json not found';
-      noRes.style.display   = 'block';
-      noRes.textContent     = 'Add photos/manifest.json to your repo.';
+      noRes.style.display = 'block';
+      noRes.textContent = 'Add photos/manifest.json to your repo.';
       return;
     }
     FILTERED = ALL_DATA;
-    fullReset();
+    render();
   }
 
   init();
