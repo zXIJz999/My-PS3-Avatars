@@ -557,7 +557,7 @@ function render() {
       if (activeFilter === 'sought' && !isSought) return;
       if (activeFilter === 'normal' && isSought) return;
 
-      // filter search
+      // filter search by checking both the individual PSNA code AND the game group name
       const groupMatches = q && g.group.toLowerCase().includes(q);
       const filteredFiles = q
         ? g.files.filter(f => {
