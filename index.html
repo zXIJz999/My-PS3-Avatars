@@ -319,7 +319,6 @@
 
 <div class="divider"><div class="divider-line"></div><div class="divider-label">index</div><div class="divider-line"></div></div>
 
-<!-- TAB BAR -->
 <div class="tab-bar" id="tabBar">
   <button class="tab-btn active" data-filter="all">All</button>
   <button class="tab-btn sought-tab" data-filter="sought">★ Sought After</button>
@@ -334,7 +333,6 @@
 <footer class="site-footer">avatar codex &nbsp;·&nbsp; psna matcher &nbsp;·&nbsp; zxijz</footer>
 <div class="toast" id="toast"></div>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
   <div class="lb-inner">
     <div class="lb-img-wrap" id="lbImgWrap">
@@ -510,9 +508,22 @@ function makeSection(groupEntry, isSought) {
   gallery.className = 'gallery';
 
   const frag = document.createDocumentFragment();
-  files.forEach(filename => {
-    const psna = extractPSNA(filename);
-    const d = { psna, src: PHOTOS_DIR + filename, group };
+  files.forEach(fileObj => {
+    // Support parsed python objects OR legacy filename strings
+    let psna, srcFile;
+    if (typeof fileObj === 'string') {
+        psna = extractPSNA(fileObj);
+        srcFile = fileObj;
+    } else {
+        psna = extractPSNA(fileObj.psnaCode);
+        srcFile = fileObj.imgFile;
+    }
+
+    const d = { 
+        psna, 
+        src: srcFile ? PHOTOS_DIR + srcFile : null, 
+        group 
+    };
     frag.appendChild(makeCell(d));
   });
   gallery.appendChild(frag);
@@ -549,7 +560,10 @@ function render() {
       // filter search
       const groupMatches = q && g.group.toLowerCase().includes(q);
       const filteredFiles = q
-        ? g.files.filter(f => f.toLowerCase().includes(q) || g.group.toLowerCase().includes(q))
+        ? g.files.filter(f => {
+            const code = typeof f === 'string' ? f : f.psnaCode;
+            return code.toLowerCase().includes(q) || g.group.toLowerCase().includes(q);
+          })
         : g.files;
 
       if (q && filteredFiles.length === 0) return;
@@ -614,11 +628,40 @@ async function init() {
   try {
     const res = await fetch(PHOTOS_DIR + 'manifest.json');
     if (!res.ok) throw new Error();
-    MANIFEST = await res.json();
+    const data = await res.json();
 
-    // Support old flat-array manifest format as fallback
-    if (Array.isArray(MANIFEST)) {
-      MANIFEST = { sought_after: [], normal: [{ group: 'All Avatars', files: MANIFEST }] };
+    // Dynamically bridge Python script output format to HTML
+    if (data.games !== undefined) {
+      MANIFEST = { sought_after: [], normal: [] };
+
+      const formatGroup = (arr) => arr.map(item => ({
+          group: item.game,
+          files: item.edats.map(e => ({
+              psnaCode: e.edat,
+              imgFile: e.png || null
+          }))
+      }));
+
+      MANIFEST.sought_after = formatGroup(data.sought_after || []);
+      MANIFEST.normal = formatGroup(data.games || []);
+
+      if (data.loose) {
+          for (const [key, edats] of Object.entries(data.loose)) {
+              MANIFEST.normal.push({
+                  group: key,
+                  files: edats.map(e => ({
+                      psnaCode: e.edat,
+                      imgFile: e.png || null
+                  }))
+              });
+          }
+      }
+      MANIFEST.normal.sort((a,b) => a.group.localeCompare(b.group));
+    } else {
+      // Legacy format fallback
+      MANIFEST = Array.isArray(data) 
+        ? { sought_after: [], normal: [{ group: 'All Avatars', files: data }] } 
+        : data;
     }
   } catch {
     countPill.textContent = 'manifest.json not found';
